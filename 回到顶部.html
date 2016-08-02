@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>回到顶部</title>
+</head>
+<body>
+	<div style="width:100px;height:5000px;background-color:#ccc"></div>
+	<button id="btn" style="position:fixed;bottom:0px;display:none">回到顶部</button>
+	<script>
+	window.onload = function(){
+		var btn = document.getElementById('btn');
+		var clientHeight = document.documentElement.clientHeight;
+		var timer = null;
+		var isTop = true;
+		//滚动条滚动式触发
+		window.onscroll = function(){
+			var osTop = document.documentElement.scrollTop||document.body.scrollTop;
+			if(osTop>=clientHeight){
+				btn.style.display = 'block';
+			}else{
+				btn.style.display = 'none';
+			}
+			if(!isTop){
+				clearInterval(timer);
+			}
+			isTop = false;
+		}
+
+
+		btn.onclick = function(){
+			timer = setInterval(function(){
+				var osTop = document.documentElement.scrollTop||document.body.scrollTop;
+				var ispeed = Math.floor(-osTop/6);
+				document.documentElement.scrollTop = document.body.scrollTop = osTop + ispeed;
+				isTop = true;
+				console.log(osTop - ispeed);
+				if(osTop == 0){
+					clearInterval(timer);
+				}
+			},50);
+		}
+	}
+	</script>
+</body>
+</html>
