@@ -1,0 +1,79 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css" media="screen"media>
+		div{
+            width:64px;
+            height:64px;
+            border:1px solid #e0e0e0;
+            position:relative;
+        }
+
+        img,input{
+            width:inherit;
+            height:inherit;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+
+        input{
+            opacity: 0;
+            z-index:999;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input id="select_file" accept="image/*" name = 'file' type='file' />
+        <img src="" alt="">
+    </div>
+    
+    
+
+    <script type="text/javascript">
+        var img = document.querySelector('img'),
+            input = document.querySelector('#select_file');
+
+            input.onchange = function(ev){
+                var select_file = input.files[0];
+                // 图片预览
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        img.src = e.target.result;//无论读取成功或失败，方法并不会返回读取结果，这一结果存储在result属性中。
+                        //console.log(e.target.result);
+                    };
+                    reader.readAsDataURL(select_file);
+
+// 图片上传
+                    var oMyForm = new FormData();
+                        //创建一个formData,把图片加入到这个空的对象中
+                       // oMyForm.append('img',select_file);
+                        oMyForm.img = select_file;
+                        //console.log(oMyForm);
+
+                        var xhr;
+                        if (window.XMLHttpRequest){
+                            xhr=new XMLHttpRequest();
+                        }else{
+                            xhr=new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+
+                        xhr.open(url,true);
+                        xhr.send(oMyForm);
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 4) {
+                                if (xhr.status == 200) {
+                                    console.log("upload complete");
+                                    console.log("response: " + xhr.responseText);
+                                }
+                            }
+                        }
+            }
+
+    </script>
+</body>
+</html>
