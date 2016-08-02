@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>判断复选框是否选中</title>
+</head>
+<body>
+	<input type="checkbox" id="cr">我已经阅读了上面制度
+	
+	<script src="jquery.js"></script>
+	<script>
+		$(function(){
+			// var $cr = $("#cr");
+			// var cr = $cr[0]; //DOM对象，或者是$cr.get(0)
+			// $cr.click(function(event) {
+			// 	/* Act on the event */
+			// 	if(cr.checked){  //DOM方式判断
+			// 		alert('感谢您的支持');
+			// 	}
+			// });
+
+			var $cr = $("#cr");
+			$cr.click(function(event) {
+				/* Act on the event */
+				if($cr.is(':checked')){
+					alert('感谢您的支持');
+				}
+			});
+		})
+	</script>
+</body>
+</html>
